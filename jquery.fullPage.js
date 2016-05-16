@@ -133,6 +133,11 @@
             scrollOverflowHandler: defaultScrollHandler,
             touchSensitivity: 5,
             normalScrollElementTouchThreshold: 5,
+            slimScrollOptions: {
+                allowPageScroll: true,
+                size: '10px',
+                alwaysVisible: true
+            },
 
             //Accessibility
             keyboardScrolling: true,
@@ -2042,7 +2047,7 @@
                     }else{
                         element.wrapInner(wrap);
                     }
-                    scrollOverflowHandler.create(element, scrollHeight);
+                    scrollOverflowHandler.create(element, scrollHeight, options.slimScrollOptions);
                 }
             }
             //removing the scrolling when it is not necessary anymore
@@ -2709,13 +2714,9 @@
          * @param  {Object} element      jQuery object containing current section
          * @param  {Number} scrollHeight Current window height in pixels
          */
-        create: function(element, scrollHeight){
-            element.find(SCROLLABLE_SEL).slimScroll({
-                allowPageScroll: true,
-                height: scrollHeight + 'px',
-                size: '10px',
-                alwaysVisible: true
-            });
+        create: function(element, scrollHeight, options){
+            options.height = options.height || scrollHeight + 'px';
+            element.find(SCROLLABLE_SEL).slimScroll(options);
         },
 
         /**
